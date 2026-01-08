@@ -4,10 +4,23 @@ from flask import json
 from datetime import datetime
 from urllib.request import urlopen
 import sqlite3
-                                                                                                                                       
-@app.route("/contact/")
+from flask import request
+
+@app.route("/contact/", methods=["GET", "POST"])
 def contact():
+    if request.method == "POST":
+        prenom = request.form.get("prenom")
+        nom = request.form.get("nom")
+        message = request.form.get("message")
+
+        return f"""
+        <h2>Merci {prenom} {nom} !</h2>
+        <p>Message reçu :</p>
+        <p>{message}</p>
+        """
+
     return render_template("contact.html")
+
   
 @app.route('/tawarano/')
 def meteo():
